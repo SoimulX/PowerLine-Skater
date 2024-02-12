@@ -1,0 +1,78 @@
+[gd_scene load_steps=13 format=3 uid="uid://cvp6l4nbpjyte"]
+
+[ext_resource type="Script" path="res://Space-Time Manager.gd" id="1_r5kh4"]
+[ext_resource type="Script" path="res://main.gd" id="1_wtw03"]
+[ext_resource type="Script" path="res://camera.gd" id="2_3gwu0"]
+[ext_resource type="PackedScene" uid="uid://y70veeoeugyt" path="res://PowerLine/powerline.tscn" id="2_acdmp"]
+[ext_resource type="Script" path="res://PowerLine/powerline_manager.gd" id="3_1w3w0"]
+[ext_resource type="Script" path="res://Parallax/parallax_manager.gd" id="3_4tmpr"]
+[ext_resource type="Script" path="res://Parallax/svg_builder.gd" id="4_7r4u5"]
+[ext_resource type="Script" path="res://enemy_manager.gd" id="6_hpw76"]
+[ext_resource type="PackedScene" uid="uid://bwh08c8ympwa" path="res://Player/player.tscn" id="7_p6tm4"]
+[ext_resource type="Script" path="res://test.gd" id="10_ngnn8"]
+
+[sub_resource type="Curve" id="Curve_bsgpr"]
+_data = [Vector2(0, 0), 0.0, 1.33803, 0, 0, Vector2(0.5, 0.52), 0.0365384, 0.0365384, 0, 0, Vector2(1, 1), 1.32867, 1.0, 0, 0]
+point_count = 3
+metadata/_snap_enabled = true
+metadata/_snap_count = 100
+
+[sub_resource type="LabelSettings" id="LabelSettings_n4u4f"]
+font_size = 48
+
+[node name="Main" type="Node2D"]
+script = ExtResource("1_wtw03")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(576, 0)
+script = ExtResource("2_3gwu0")
+
+[node name="Parallax Manager" type="Node2D" parent="."]
+script = ExtResource("3_4tmpr")
+
+[node name="Mountain Village" type="Node2D" parent="Parallax Manager"]
+position = Vector2(576, 0)
+script = ExtResource("4_7r4u5")
+svg_path = "res://Parallax/Layers/Mountain Village/Mountain Village Background.svg"
+node_scale = 1.0
+bg_color = Color(0.584314, 0.541176, 0.392157, 1)
+fg_color = Color(0.0470588, 0.258824, 0.423529, 1)
+color_mix_curve = SubResource("Curve_bsgpr")
+
+[node name="Space-Time Manager" type="Node2D" parent="."]
+script = ExtResource("1_r5kh4")
+speed = 500.0
+
+[node name="PowerLine Manager" type="Node2D" parent="."]
+script = ExtResource("3_1w3w0")
+
+[node name="PowerLine1" parent="PowerLine Manager" instance=ExtResource("2_acdmp")]
+position = Vector2(0, -128)
+
+[node name="PowerLine2" parent="PowerLine Manager" instance=ExtResource("2_acdmp")]
+position = Vector2(0, 0)
+
+[node name="PowerLine3" parent="PowerLine Manager" instance=ExtResource("2_acdmp")]
+position = Vector2(0, 128)
+
+[node name="Enemy Manager" type="Node2D" parent="."]
+script = ExtResource("6_hpw76")
+
+[node name="Player" parent="." instance=ExtResource("7_p6tm4")]
+
+[node name="Score" type="Label" parent="."]
+offset_top = -321.0
+offset_right = 1152.0
+offset_bottom = -208.0
+text = "0"
+label_settings = SubResource("LabelSettings_n4u4f")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Node2D" type="Node2D" parent="."]
+position = Vector2(576, 0)
+script = ExtResource("10_ngnn8")
+
+[connection signal="draw" from="PowerLine Manager/PowerLine1/Segment" to="PowerLine Manager/PowerLine1/Segment/Segment_Graphics" method="_on_segment_draw"]
+[connection signal="draw" from="PowerLine Manager/PowerLine2/Segment" to="PowerLine Manager/PowerLine2/Segment/Segment_Graphics" method="_on_segment_draw"]
+[connection signal="draw" from="PowerLine Manager/PowerLine3/Segment" to="PowerLine Manager/PowerLine3/Segment/Segment_Graphics" method="_on_segment_draw"]

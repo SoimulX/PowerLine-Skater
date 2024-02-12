@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://y70veeoeugyt"]
+
+[ext_resource type="Script" path="res://PowerLine/powerline.gd" id="1_gumgv"]
+
+[node name="PowerLine" type="Node2D"]
+position = Vector2(64, 280)
+script = ExtResource("1_gumgv")
+
+[connection signal="item_rect_changed" from="." to="." method="_on_item_rect_changed"]
+[connection signal="draw" from="Segment" to="Segment/Segment_Graphics" method="_on_segment_draw"]

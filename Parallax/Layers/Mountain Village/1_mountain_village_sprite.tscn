@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://b3m6aog5rqcfo"]
+
+[ext_resource type="Texture2D" uid="uid://be6qvtdskb4u2" path="res://Parallax/Layers/Mountain Village/seamless-mountains-615428_1920.png" id="1_sn4h6"]
+
+[node name="Mountain Village" type="Sprite2D"]
+scale = Vector2(0.6, 0.6)
+texture = ExtResource("1_sn4h6")

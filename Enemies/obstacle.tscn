@@ -1,0 +1,22 @@
+[gd_scene load_steps=3 format=3 uid="uid://e0o3vr4n22xc"]
+
+[ext_resource type="Script" path="res://Enemies/obstacle.gd" id="1_x8rw7"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_siwvk"]
+size = Vector2(16, 32)
+
+[node name="PathFollow2D" type="PathFollow2D"]
+script = ExtResource("1_x8rw7")
+
+[node name="Obstacle" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Obstacle"]
+position = Vector2(0, -16)
+shape = SubResource("RectangleShape2D_siwvk")
+
+[node name="ColorRect" type="ColorRect" parent="Obstacle"]
+offset_left = -8.0
+offset_top = -32.0
+offset_right = 8.0
+
+[connection signal="body_entered" from="Obstacle" to="." method="_on_body_entered"]
